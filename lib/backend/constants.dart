@@ -11,6 +11,8 @@ class AppConstants extends ChangeNotifier {
   }
 
   /// Getters
+  bool get isThemeLight => _isThemeLight;
+
   MaterialColor get getForeGroundColor =>
       (_isThemeLight) ? Colors.indigo : Colors.amber;
 

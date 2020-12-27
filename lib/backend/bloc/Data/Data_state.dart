@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 abstract class DataState extends Equatable {
-
   final List propss;
   DataState([this.propss]);
 
@@ -11,29 +10,24 @@ abstract class DataState extends Equatable {
 
 /// UnInitialized
 class UnDataState extends DataState {
-
-  UnDataState();
-
   @override
-  String toString() => 'UnDataState';
+  String toString() => 'FireBase Uninitialised';
 }
 
 /// Initialized
 class InDataState extends DataState {
-  final String hello;
-
-  InDataState(this.hello) : super([hello]);
+  InDataState() : super([]);
 
   @override
-  String toString() => 'InDataState $hello';
-
+  String toString() => 'Firebase Initialised and working State';
 }
 
+/// Error
 class ErrorDataState extends DataState {
   final String errorMessage;
 
-  ErrorDataState(this.errorMessage): super([errorMessage]);
-  
+  ErrorDataState(this.errorMessage) : super([errorMessage]);
+
   @override
   String toString() => 'ErrorDataState';
 }

@@ -1,19 +1,22 @@
-import 'dart:async';
-import 'dart:developer' as developer;
-
 import 'package:bloc/bloc.dart';
-import 'package:restaurant_manage/backend/bloc/Data/index.dart';
+import 'package:flutter/widgets.dart';
 
-class DataBloc extends Bloc<DataEvent, DataState> {
-  DataBloc(DataState initialState) : super(initialState);
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  @override
-  Stream<DataState> mapEventToState(DataEvent event) async* {
-    try {
-      yield* event.applyAsync(currentState: state, bloc: this);
-    } catch (_, stackTrace) {
-      developer.log('$_', name: 'DataBloc', error: _, stackTrace: stackTrace);
-      yield state;
-    }
-  }
+import 'package:restaurant_manage/backend/bloc/Data/Data_state.dart';
+import 'package:restaurant_manage/backend/bloc/Login/Login_bloc.dart';
+
+export 'package:restaurant_manage/backend/bloc/Data/Data_state.dart';
+
+class DataBloc extends Cubit<DataState> {
+  final FirebaseFirestore _firestore;
+  final LoginBloc _loginBloc;
+
+  DataBloc({
+    FirebaseFirestore firestore,
+    DataState initialState,
+    @required LoginBloc loginBloc,
+  })  : _firestore = firestore ?? FirebaseFirestore.instance,
+        _loginBloc = loginBloc,
+        super(initialState ?? UnDataState());
 }
