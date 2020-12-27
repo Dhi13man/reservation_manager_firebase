@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -8,24 +7,31 @@ import 'package:restaurant_manage/backend/bloc/Login/Login_bloc.dart';
 import 'package:restaurant_manage/backend/constants.dart';
 import 'package:restaurant_manage/backend/repos/authentication.dart';
 
-import 'package:restaurant_manage/screens/add_screen.dart';
+import 'package:restaurant_manage/screens/splash_screen.dart';
 import 'package:restaurant_manage/screens/login_screen.dart';
 import 'package:restaurant_manage/screens/reservation_screen.dart';
+import 'package:restaurant_manage/screens/add_screen.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
+  AppConstants _appConstants = AppConstants();
+
+  runApp(
+    ChangeNotifierProvider<AppConstants>.value(
+      value: _appConstants,
+      builder: (context, child) => ReservationApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class ReservationApp extends StatelessWidget {
+  final String _appTitle = 'Restaurant Manager';
+
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppConstants>(
-            create: (context) => AppConstants()),
         BlocProvider<LoginBloc>(
           create: (context) => LoginBloc(
             authenticationRepository: AuthenticationRepository(),
@@ -34,18 +40,31 @@ class MyApp extends StatelessWidget {
         BlocProvider<DataBloc>(
           create: (context) => DataBloc(
             initialState: UnDataState(),
-            loginBloc: context.read<LoginBloc>(),
+            loginBloc: BlocProvider.of<LoginBloc>(context),
           ),
         ),
       ],
       child: MaterialApp(
-        title: 'Restaurant Manager',
+        title: _appTitle,
         theme: ThemeData(primarySwatch: Colors.blue),
         debugShowCheckedModeBanner: false,
-        home: HotelAppLoginScreen(title: 'Restaurant Manager'),
         onGenerateRoute: (settings) {
           switch (settings.name) {
-            case '/':
+            case SplashScreen.routeName:
+              return PageTransition(
+                child: Builder(
+                  builder: (context) =>
+                      ChangeNotifierProvider<AppConstants>.value(
+                    value: context.watch<AppConstants>(),
+                    child: SplashScreen(),
+                  ),
+                ),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+              break;
+
+            case LoginScreen.routeName:
               return PageTransition(
                 child: Builder(
                   builder: (context) => MultiProvider(
@@ -54,28 +73,30 @@ class MyApp extends StatelessWidget {
                         value: context.watch<AppConstants>(),
                       ),
                       BlocProvider<LoginBloc>.value(
-                        value: context.read<LoginBloc>(),
+                        value: context.watch<LoginBloc>(),
                       )
                     ],
-                    child: HotelAppLoginScreen(title: 'Restaurant Manager'),
+                    child: LoginScreen(title: _appTitle),
                   ),
                 ),
                 type: PageTransitionType.fade,
+                duration: Duration(seconds: 2, milliseconds: 500),
                 settings: settings,
               );
               break;
 
-            case '/add':
+            case AddReservationScreen.routeName:
               return PageTransition(
                 child: Builder(
                   builder: (context) {
-                    DataBloc dataBloc = context.read<DataBloc>();
                     return MultiProvider(
                       providers: [
                         ChangeNotifierProvider<AppConstants>.value(
                           value: context.watch<AppConstants>(),
                         ),
-                        BlocProvider<DataBloc>.value(value: dataBloc)
+                        BlocProvider<DataBloc>.value(
+                          value: context.watch<DataBloc>(),
+                        )
                       ],
                       child: AddReservationScreen(),
                     );
@@ -86,20 +107,23 @@ class MyApp extends StatelessWidget {
               );
               break;
 
-            case '/reservelist':
+            case ReservationListScreen.routeName:
               return PageTransition(
-                child: Builder(builder: (context) {
-                  DataBloc dataBloc = context.read<DataBloc>();
-                  return MultiProvider(
-                    providers: [
-                      ChangeNotifierProvider<AppConstants>.value(
-                        value: context.watch<AppConstants>(),
-                      ),
-                      BlocProvider<DataBloc>.value(value: dataBloc)
-                    ],
-                    child: ReservationListScreen(),
-                  );
-                }),
+                child: Builder(
+                  builder: (context) {
+                    return MultiProvider(
+                      providers: [
+                        ChangeNotifierProvider<AppConstants>.value(
+                          value: context.watch<AppConstants>(),
+                        ),
+                        BlocProvider<DataBloc>.value(
+                          value: context.watch<DataBloc>(),
+                        )
+                      ],
+                      child: ReservationListScreen(),
+                    );
+                  },
+                ),
                 type: PageTransitionType.bottomToTop,
                 settings: settings,
               );

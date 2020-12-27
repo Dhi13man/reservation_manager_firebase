@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AddReservationScreen extends StatelessWidget {
   final String _title;
 
+  static const routeName = '/add';
   AddReservationScreen({Key key, String title})
       : _title = title,
         super(key: key);

@@ -9,7 +9,6 @@ export 'package:restaurant_manage/backend/bloc/Login/Login_state.dart';
 
 class LoginBloc extends Cubit<LoginState> {
   final AuthenticationRepository _authenticationRepository;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   LoginBloc({
     @required AuthenticationRepository authenticationRepository,
@@ -28,7 +27,7 @@ class LoginBloc extends Cubit<LoginState> {
       );
       emit(SignedInLoginState());
     } catch (e) {
-      emit(ErrorLoginState(e));
+      emit(ErrorLoginState(e.toString()));
     }
   }
 
@@ -46,15 +45,25 @@ class LoginBloc extends Cubit<LoginState> {
     @required String password,
   }) async {
     try {
-      await _authenticationRepository.logInWithEmailAndPassword(
+      await _authenticationRepository.signUp(
         email: email,
         password: password,
       );
       emit(SignedInLoginState());
     } catch (e) {
-      emit(ErrorLoginState(e));
+      if (e is SignUpFailure)
+        emit(ErrorLoginState('Sign Up Error. Try Different Credentials'));
+      else if (e is LogInWithEmailAndPasswordFailure)
+        emit(ErrorLoginState('Log In Error. Check Credentials.'));
+      else if (e is LogInWithGoogleFailure)
+        emit(ErrorLoginState('Log In Error while interfacing Google'));
+      else
+        emit(ErrorLoginState(e.toString()));
     }
   }
 
-  void signOut() async => await _authenticationRepository.logOut();
+  void signOut() async {
+    await _authenticationRepository.logOut();
+    emit(SignedOutLoginState());
+  }
 }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:restaurant_manage/backend/bloc/Login/Login_bloc.dart';
 
+import 'package:restaurant_manage/backend/bloc/Login/Login_bloc.dart';
 import 'package:restaurant_manage/backend/constants.dart';
+
+import 'package:restaurant_manage/screens/splash_screen.dart';
+import 'package:restaurant_manage/screens/reservation_screen.dart';
 
 class LoginButtons extends StatelessWidget {
   const LoginButtons({
@@ -25,8 +29,7 @@ class LoginButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LoginBloc loginBloc = context.watch<LoginBloc>();
-    print(loginBloc);
+    LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context);
 
     // Build Button Styles
     final Color _buttonForegroundColor =
@@ -150,9 +153,12 @@ class _LoginFormState extends State<LoginForm> {
           child: Column(
             children: [
               FormBuilderTextField(
-                validators: [FormBuilderValidators.required()],
+                validators: [
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.email(),
+                ],
                 decoration: InputDecoration(
-                  labelText: 'Username',
+                  labelText: 'Email Address',
                 ),
                 controller: _controlmap['user'],
                 attribute: 'user',
@@ -187,50 +193,59 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-class HotelAppLoginScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   final String _title;
 
-  HotelAppLoginScreen({Key key, String title})
+  static const routeName = '/login';
+  LoginScreen({Key key, String title})
       : _title = title ?? 'App Title',
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     AppConstants _appConstants = context.watch<AppConstants>();
-    return Scaffold(
-      backgroundColor: _appConstants.getBackGroundColor,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(50),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: _appConstants.getLighterForeGroundColor
-                        .withOpacity(0.2)),
-                child: Icon(
-                  Icons.restaurant_menu,
-                  size: 60,
-                  color:
-                      _appConstants.getLighterForeGroundColor.withOpacity(0.9),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Text(
-                  _title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: _appConstants.getForeGroundColor,
-                    fontSize: 30,
+    LoginBloc loginBloc = context.watch<LoginBloc>();
+
+    return BlocListener<LoginBloc, LoginState>(
+      cubit: loginBloc,
+      listener: (context, state) {
+        if (state is SignedInLoginState) {
+          Navigator.pushReplacementNamed(
+            context,
+            ReservationListScreen.routeName,
+          );
+        } else if (state is ErrorLoginState) {
+          ErrorLoginState errorState = state;
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Sign in Error: ${errorState.errorMessage}'),
+            ),
+          );
+        }
+      },
+      child: Scaffold(
+        backgroundColor: _appConstants.getBackGroundColor,
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                AppHeroIcon(appConstants: _appConstants, iconSize: 150.0),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Text(
+                    _title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: _appConstants.getForeGroundColor,
+                      fontSize: 30,
+                    ),
                   ),
                 ),
-              ),
-              LoginForm(appConstants: _appConstants),
-            ],
+                LoginForm(appConstants: _appConstants),
+              ],
+            ),
           ),
         ),
       ),

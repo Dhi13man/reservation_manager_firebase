@@ -20,9 +20,8 @@ class UnLoginState extends LoginState {
 
 /// Initialized
 class SignedOutLoginState extends LoginState {
-  final String hello;
 
-  SignedOutLoginState(this.hello) : super([hello]);
+  SignedOutLoginState() : super([]);
 
   @override
   String toString() => 'Signed out State';
