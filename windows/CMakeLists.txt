@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(restaurant_manage LANGUAGES CXX)
+project(reservation_manager LANGUAGES CXX)
 
-set(BINARY_NAME "restaurant_manage")
+set(BINARY_NAME "reservation_manager")
 
 cmake_policy(SET CMP0063 NEW)
 

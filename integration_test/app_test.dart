@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'package:reservation_manage/main.dart' as app;
+import 'package:reservation_manager/main.dart' as app;
 
 void main() => run(_testMain);
 

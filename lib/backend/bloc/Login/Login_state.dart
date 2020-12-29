@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:reservation_manage/backend/repos/data_classes.dart' as data;
+import 'package:reservation_manager/backend/repos/data_classes.dart' as data;
 
 abstract class LoginState extends Equatable {
   final List propss;

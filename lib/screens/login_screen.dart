@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-import 'package:reservation_manage/backend/bloc/Login/Login_bloc.dart';
-import 'package:reservation_manage/backend/constants.dart';
+import 'package:reservation_manager/backend/bloc/Login/Login_bloc.dart';
+import 'package:reservation_manager/backend/constants.dart';
 
-import 'package:reservation_manage/screens/splash_screen.dart';
-import 'package:reservation_manage/screens/reservation_screen.dart';
+import 'package:reservation_manager/screens/splash_screen.dart';
+import 'package:reservation_manager/screens/reservation_screen.dart';
 
 class LoginButtons extends StatelessWidget {
   const LoginButtons({
@@ -261,7 +261,8 @@ class LoginScreen extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text('Sign in Error: ${errorState.errorMessage}'),
+              title: Text('Sign in Error:'),
+              content: Text('${errorState.errorMessage}'),
             ),
           );
           ScaffoldMessenger.of(context).removeCurrentSnackBar();

@@ -1,11 +1,11 @@
 {
-    "name": "restaurant_manage",
-    "short_name": "restaurant_manage",
+    "name": "reservation_manager",
+    "short_name": "reservation_manager",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "This is a Reservation Management App project made in an attempt to learn how to utilize Firebase in a short period of time.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

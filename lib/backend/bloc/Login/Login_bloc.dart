@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:reservation_manage/backend/bloc/Login/Login_state.dart';
-import 'package:reservation_manage/backend/repos/authentication.dart';
-import 'package:reservation_manage/backend/repos/data_classes.dart' as data;
+import 'package:reservation_manager/backend/bloc/Login/Login_state.dart';
+import 'package:reservation_manager/backend/repos/authentication.dart';
+import 'package:reservation_manager/backend/repos/data_classes.dart' as data;
 
-export 'package:reservation_manage/backend/bloc/Login/Login_state.dart';
+export 'package:reservation_manager/backend/bloc/Login/Login_state.dart';
 
 class LoginBloc extends Cubit<LoginState> {
   final AuthenticationRepository _authenticationRepository;
@@ -44,7 +44,7 @@ class LoginBloc extends Cubit<LoginState> {
       emit(SignedInLoginState(credential: cred));
     } catch (e) {
       if (e is LogInWithGoogleFailure)
-        emit(ErrorLoginState('Log In Error while interfacing Google'));
+        emit(ErrorLoginState('Error while interfacing Google.'));
       emit(ErrorLoginState(e));
     }
   }

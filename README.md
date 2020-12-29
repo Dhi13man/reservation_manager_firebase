@@ -1,6 +1,7 @@
-# restaurant_manage
+# Firebase Reservation Manger
 
-A Reservation Management App project made in an attempt to learn how to utilize Firebase in a short period of time.
+This is a Reservation Management App project made in an attempt to learn how to utilize Firebase in a short period of time.
+Download App from Releases: 
 
 ## Getting Started
 
@@ -36,7 +37,7 @@ Add Reservation Screen(Light): | Add Reservation Screen(Dark):
 
 Reservation Screen Landscape:|
 ------------------------------|
-[<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
+[<img height="300" width="600" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
 
 ### Dependencies Used
 

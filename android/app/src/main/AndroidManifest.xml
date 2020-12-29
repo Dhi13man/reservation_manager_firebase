@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dhi13man.restaurant_manage">
+    package="com.dhi13man.reservation_manager">
   <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="reservation_manage"
+        android:label="Reservation Manager"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -4,11 +4,11 @@ import 'package:flutter/widgets.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:reservation_manage/backend/bloc/Data/Data_state.dart';
-import 'package:reservation_manage/backend/bloc/Login/Login_bloc.dart';
-import 'package:reservation_manage/backend/repos/data_classes.dart';
+import 'package:reservation_manager/backend/bloc/Data/Data_state.dart';
+import 'package:reservation_manager/backend/bloc/Login/Login_bloc.dart';
+import 'package:reservation_manager/backend/repos/data_classes.dart';
 
-export 'package:reservation_manage/backend/bloc/Data/Data_state.dart';
+export 'package:reservation_manager/backend/bloc/Data/Data_state.dart';
 
 class DataBloc extends Cubit<DataState> {
   final FirebaseFirestore _firestore;

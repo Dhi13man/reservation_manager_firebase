@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "A new Flutter project." "\0"
+            VALUE "CompanyName", "com.dhi13man" "\0"
+            VALUE "FileDescription", "This is a Reservation Management App project made in an attempt to learn how to utilize Firebase in a short period of time." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "restaurant_manage" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2020 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "restaurant_manage.exe" "\0"
-            VALUE "ProductName", "restaurant_manage" "\0"
+            VALUE "InternalName", "reservation_manager" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2020 com.dhi13man. All rights reserved." "\0"
+            VALUE "OriginalFilename", "reservation_manager.exe" "\0"
+            VALUE "ProductName", "reservation_manager" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
