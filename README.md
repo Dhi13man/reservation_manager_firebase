@@ -38,7 +38,7 @@ Add or Edit Reservation Screen(Light): | Add or Edit Reservation Screen(Dark):
 
 Reservation Screen Landscape:|
 ------------------------------|
-[<img height="300" width="600" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
+[<img height="350" width="700" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
 
 ---
 
