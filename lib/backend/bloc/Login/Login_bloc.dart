@@ -32,8 +32,9 @@ class LoginBloc extends Cubit<LoginState> {
       emit(SignedInLoginState(user: _user, credential: cred));
     } catch (e) {
       if (e is LogInWithEmailAndPasswordFailure)
-        emit(ErrorLoginState('Log In Error. Check Credentials.'));
-      emit(ErrorLoginState(e.toString()));
+        emit(ErrorLoginState('Check Credentials and Network Connection.'));
+      else
+        emit(ErrorLoginState(e.toString()));
     }
   }
 
@@ -44,8 +45,11 @@ class LoginBloc extends Cubit<LoginState> {
       emit(SignedInLoginState(credential: cred));
     } catch (e) {
       if (e is LogInWithGoogleFailure)
-        emit(ErrorLoginState('Error while interfacing Google.'));
-      emit(ErrorLoginState(e));
+        emit(ErrorLoginState(
+          'Error while interfacing Google. Check Network Connection.',
+        ));
+      else
+        emit(ErrorLoginState(e));
     }
   }
 
@@ -63,9 +67,11 @@ class LoginBloc extends Cubit<LoginState> {
       emit(SignedInLoginState(user: _user, credential: cred));
     } catch (e) {
       if (e is SignUpFailure)
-        emit(ErrorLoginState('Sign Up Error. Try Different Credentials'));
+        emit(ErrorLoginState(
+          'Try Different Credentials and check Network Connection.',
+        ));
       else if (e is LogInWithEmailAndPasswordFailure)
-        emit(ErrorLoginState('Log In Error. Check Credentials.'));
+        emit(ErrorLoginState('Check Credentials.'));
       else
         emit(ErrorLoginState(e.toString()));
     }
@@ -76,6 +82,13 @@ class LoginBloc extends Cubit<LoginState> {
     emit(SignedOutLoginState());
   }
 
-  void forgotPassword(String email) async =>
+  void forgotPassword(String email) async {
+    try {
       await _authenticationRepository.forgotPassword(email);
+    } catch (e) {
+      emit(
+        ErrorLoginState('Check Network Connection and if Email is Registered!'),
+      );
+    }
+  }
 }

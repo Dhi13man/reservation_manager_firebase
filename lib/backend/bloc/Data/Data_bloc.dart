@@ -71,7 +71,9 @@ class DataBloc extends Cubit<DataState> {
   Future<bool> _isReservationTaken(String reservationKey) async {
     DocumentSnapshot snap = await documentCheck();
     Map<String, dynamic> currentData = snap.data();
-    return currentData.containsKey(reservationKey);
+    return (currentData == null)
+        ? false
+        : currentData.containsKey(reservationKey);
   }
 
   Future<bool> addReservation(Reservation reservation) async {

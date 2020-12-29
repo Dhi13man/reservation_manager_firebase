@@ -29,15 +29,19 @@ class LoginButtons extends StatelessWidget {
   final bool _isFormValid;
   final Map<String, TextEditingController> _controlmap;
 
+  Color _buttonForegroundColor(bool isEnabled) =>
+      (isEnabled) ? _appConstants.getForeGroundColor : Colors.grey;
+
   @override
   Widget build(BuildContext context) {
     LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context);
 
     // Build Button Styles
-    final Color _buttonForegroundColor =
-        (_isFormValid) ? _appConstants.getForeGroundColor : Colors.grey;
+
     final ButtonStyle _buttonStyle = ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(_buttonForegroundColor),
+      backgroundColor: MaterialStateProperty.all<Color>(
+        _buttonForegroundColor(_isFormValid),
+      ),
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(buttonPadding),
     );
 
@@ -56,13 +60,21 @@ class LoginButtons extends StatelessWidget {
             child: TextButton(
               onPressed: (!isEmailValid)
                   ? null
-                  : () => loginBloc.forgotPassword(_controlmap['user'].text),
+                  : () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                          content:
+                              Text('Check Email For Password Reset Link...'),
+                        ),
+                      );
+                      loginBloc.forgotPassword(_controlmap['user'].text);
+                    },
               child: Text(
                 'Forgot password',
                 style: TextStyle(
-                  color: (isEmailValid)
-                      ? _appConstants.getForeGroundColor
-                      : Colors.grey,
+                  color: _buttonForegroundColor(isEmailValid),
                   fontSize: 10,
                 ),
               ),
@@ -261,7 +273,7 @@ class LoginScreen extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text('Sign in Error:'),
+              title: Center(child: Text('Sign in Error')),
               content: Text('${errorState.errorMessage}'),
             ),
           );

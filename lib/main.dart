@@ -80,6 +80,7 @@ class ReservationApp extends StatelessWidget {
                   ),
                 ),
                 type: PageTransitionType.fade,
+                duration: Duration(seconds: 1),
                 settings: settings,
               );
               break;
