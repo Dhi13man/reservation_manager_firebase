@@ -24,19 +24,19 @@ The app utilizes Firebase as a backend for Authentication and Real Time Database
 
 Authentication Screen(Light): | Authentication Screen(Dark):
 ----------------|----------------------------
-[<img height="450" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/authL.jpg" alt="Authentication Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/SafeSyncIoT/main/Screenshots/authL.jpg) | [<img height="450" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/authD.jpg" alt="Authentication Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/authD.jpg)
+[<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/authL.jpg" alt="Authentication Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/SafeSyncIoT/main/Screenshots/authL.jpg) | [<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/authD.jpg" alt="Authentication Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/authD.jpg)
 
 Reservation List Screen(Light): | Reservation List Screen(Dark):
 --------------------------------------|----------------------
-[<img height="450" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveL.jpg" alt="Reservation List Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveL.jpg) | [<img height="450" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveD.jpg" alt="Reservation List Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveD.jpg)
+[<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveL.jpg" alt="Reservation List Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveL.jpg) | [<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveD.jpg" alt="Reservation List Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveD.jpg)
 
 Add Reservation Screen(Light): | Add Reservation Screen(Dark):
 --------------------------------------|----------------------
-[<img height="450" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addL.jpg" alt="Add Reservation Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addL.jpg) | [<img height="450" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addD.jpg" alt="Add Reservation Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addD.jpg)
+[<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addL.jpg" alt="Add Reservation Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addL.jpg) | [<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addD.jpg" alt="Add Reservation Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addD.jpg)
 
 Reservation Screen Landscape:|
 ------------------------------|
-[<img height="450" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
+[<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
 
 ### Dependencies Used
 
