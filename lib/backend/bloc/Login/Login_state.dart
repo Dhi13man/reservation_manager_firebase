@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:restaurant_manage/backend/repos/data_classes.dart';
+import 'package:restaurant_manage/backend/repos/data_classes.dart' as data;
 
 abstract class LoginState extends Equatable {
   final List propss;
@@ -18,9 +19,19 @@ class UnLoginState extends LoginState {
   String toString() => 'UnLoginState';
 }
 
+class LoadingLoginState extends LoginState {
+  final data.User user;
+
+  LoadingLoginState({this.user}) : super([user]);
+
+  @override
+  String toString() => (user == null)
+      ? 'Loading Google Account State'
+      : 'Loading Account with Email: ${user.email}';
+}
+
 /// Initialized
 class SignedOutLoginState extends LoginState {
-
   SignedOutLoginState() : super([]);
 
   @override
@@ -28,12 +39,15 @@ class SignedOutLoginState extends LoginState {
 }
 
 class SignedInLoginState extends LoginState {
-  final User user;
+  final data.User user;
+  final UserCredential credential;
 
-  SignedInLoginState({this.user}) : super([user]);
+  SignedInLoginState({this.user, this.credential}) : super([credential]);
 
   @override
-  String toString() => 'Signed in user ${user.name} State';
+  String toString() => (user == null)
+      ? 'Signed in with Google State'
+      : 'Signed in State. Email: ${user.email}';
 }
 
 /// Error

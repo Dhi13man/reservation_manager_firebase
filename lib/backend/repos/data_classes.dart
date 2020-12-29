@@ -10,7 +10,7 @@ class Reservation extends Equatable {
   /// {@macro user}
   const Reservation({
     @required this.dateTime,
-    @required this.email,
+    this.email = '',
     @required this.name,
     @required this.phoneNum,
   })  : assert(dateTime != null),
@@ -47,11 +47,12 @@ class Reservation extends Equatable {
 class User extends Equatable {
   /// {@macro user}
   const User({
+    this.name,
     @required this.email,
-    @required this.id,
-    @required this.name,
+    this.id,
+    @required this.password,
   })  : assert(email != null),
-        assert(id != null);
+        assert(password != null);
 
   /// The current user's email address.
   final String email;
@@ -62,8 +63,11 @@ class User extends Equatable {
   /// The current user's name (display name).
   final String name;
 
+  /// The current user's name (display name).
+  final String password;
+
   /// Empty user which represents an unauthenticated user.
-  static const empty = User(email: '', id: '', name: null);
+  static const empty = User(email: '', id: '', password: '', name: null);
 
   @override
   List<Object> get props => [email, id, name];

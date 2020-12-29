@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:restaurant_manage/backend/bloc/Data/Data_bloc.dart';
 import 'package:restaurant_manage/backend/bloc/Login/Login_bloc.dart';
 import 'package:restaurant_manage/backend/constants.dart';
+import 'package:restaurant_manage/screens/add_screen.dart';
 
 import 'package:restaurant_manage/screens/login_screen.dart';
 
@@ -16,15 +18,21 @@ class ReservationList extends StatelessWidget {
 
     return Container(
       child: StreamBuilder(
-        stream: null,
-        builder: (context, snapshot) => ListView.builder(
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('hi'),
+          stream: _dataBloc.documentStream(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
+
+            DocumentSnapshot docSnap = snapshot.data;
+            print(docSnap.data());
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text('hi'),
+                );
+              },
             );
-          },
-        ),
-      ),
+          }),
     );
   }
 }
@@ -55,7 +63,9 @@ class ReservationListScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: ElevatedButton(
-        onPressed: () => _appConstants.toggleTheme(),
+        onPressed: () => Navigator.of(context).pushNamed(
+          AddReservationScreen.routeName,
+        ),
         style: ButtonStyle(
           shape: MaterialStateProperty.all<OutlinedBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),

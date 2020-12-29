@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class DataState extends Equatable {
   final List propss;
@@ -16,7 +18,11 @@ class UnDataState extends DataState {
 
 /// Initialized
 class InDataState extends DataState {
-  InDataState() : super([]);
+  final CollectionReference collection;
+
+  InDataState({
+    @required this.collection,
+  }) : super([collection]);
 
   @override
   String toString() => 'Firebase Initialised and working State';

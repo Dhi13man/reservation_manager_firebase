@@ -18,8 +18,10 @@ class LoginButtons extends StatelessWidget {
   })  : _isFormValid = isFormValid,
         _controlmap = controlmap,
         _appConstants = appConstants,
-        buttonPadding =
-            const EdgeInsets.symmetric(horizontal: 35, vertical: 18),
+        buttonPadding = const EdgeInsets.symmetric(
+          horizontal: 35,
+          vertical: 18,
+        ),
         super(key: key);
 
   final AppConstants _appConstants;
@@ -209,12 +211,30 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       cubit: loginBloc,
       listener: (context, state) {
+        if (state is LoadingLoginState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration: Duration(days: 30),
+              padding: EdgeInsets.all(2),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text('Attempting to Log you in...'),
+                  CircularProgressIndicator(),
+                ],
+              ),
+            ),
+          );
+        }
+
         if (state is SignedInLoginState) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
           Navigator.pushReplacementNamed(
             context,
             ReservationListScreen.routeName,
           );
         } else if (state is ErrorLoginState) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
           ErrorLoginState errorState = state;
           showDialog(
             context: context,

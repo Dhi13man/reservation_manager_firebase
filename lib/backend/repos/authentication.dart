@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:restaurant_manage/backend/repos/data_classes.dart';
@@ -44,13 +45,20 @@ class AuthenticationRepository {
   /// Creates a new user with the provided [email] and [password].
   ///
   /// Throws a [SignUpFailure] if an exception occurs.
-  Future<void> signUp({
+  Future<firebase_auth.UserCredential> signUp({
     @required String email,
     @required String password,
+    bool persists = false,
   }) async {
     assert(email != null && password != null);
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      if (kIsWeb)
+        _firebaseAuth.setPersistence(
+          (persists)
+              ? firebase_auth.Persistence.LOCAL
+              : firebase_auth.Persistence.NONE,
+        );
+      return await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -62,7 +70,8 @@ class AuthenticationRepository {
   /// Starts the Sign In with Google Flow.
   ///
   /// Throws a [LogInWithGoogleFailure] if an exception occurs.
-  Future<void> logInWithGoogle() async {
+  Future<firebase_auth.UserCredential> logInWithGoogle(
+      {bool persists = false}) async {
     try {
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser.authentication;
@@ -70,7 +79,13 @@ class AuthenticationRepository {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      await _firebaseAuth.signInWithCredential(credential);
+      if (kIsWeb)
+        _firebaseAuth.setPersistence(
+          (persists)
+              ? firebase_auth.Persistence.LOCAL
+              : firebase_auth.Persistence.NONE,
+        );
+      return await _firebaseAuth.signInWithCredential(credential);
     } on Exception {
       throw LogInWithGoogleFailure();
     }
@@ -79,13 +94,20 @@ class AuthenticationRepository {
   /// Signs in with the provided [email] and [password].
   ///
   /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> logInWithEmailAndPassword({
+  Future<firebase_auth.UserCredential> logInWithEmailAndPassword({
     @required String email,
     @required String password,
+    bool persists = false,
   }) async {
     assert(email != null && password != null);
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      if (kIsWeb)
+        _firebaseAuth.setPersistence(
+          (persists)
+              ? firebase_auth.Persistence.LOCAL
+              : firebase_auth.Persistence.NONE,
+        );
+      return await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -112,6 +134,6 @@ class AuthenticationRepository {
 
 extension on firebase_auth.User {
   User get toUser {
-    return User(id: uid, email: email, name: displayName);
+    return User(id: uid, email: email, name: displayName, password: '');
   }
 }
