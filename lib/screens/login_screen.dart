@@ -233,6 +233,7 @@ class LoginScreen extends StatelessWidget {
             context,
             ReservationListScreen.routeName,
           );
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
         } else if (state is ErrorLoginState) {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
           ErrorLoginState errorState = state;
@@ -242,6 +243,7 @@ class LoginScreen extends StatelessWidget {
               title: Text('Sign in Error: ${errorState.errorMessage}'),
             ),
           );
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
         }
       },
       child: Scaffold(

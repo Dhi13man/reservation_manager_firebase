@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:restaurant_manage/backend/bloc/Data/Data_bloc.dart';
@@ -34,6 +35,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
     'date': TextEditingController(),
   };
   bool _validatedForm, _isEditMode;
+  Reservation _reservation;
 
   void _update() {
     setState(() => _validatedForm = widget._formKey.currentState.validate());
@@ -41,18 +43,33 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
 
   @override
   void initState() {
-    _validatedForm = false;
-    _isEditMode = widget._reservation != null;
+    _reservation = widget._reservation;
+    _isEditMode = _reservation != null;
+    _validatedForm = _isEditMode;
     super.initState();
+  }
+
+  void populateTextControllers(Reservation _reservation) {
+    _controlmap['name'].text = _reservation?.name;
+    _controlmap['phone'].text = _reservation?.phoneNum.toString();
+    _controlmap['email'].text = _reservation?.email;
   }
 
   @override
   Widget build(BuildContext context) {
     AppConstants _appConstants = context.watch<AppConstants>();
     DataBloc dataBloc = context.watch<DataBloc>();
-    String formType = (_isEditMode) ? 'Update Employee' : 'Add Employee';
 
-    // Build Button Styles
+    if (_reservation == null) {
+      if (ModalRoute.of(context).settings.arguments is Reservation) {
+        _reservation = ModalRoute.of(context).settings.arguments;
+        populateTextControllers(_reservation);
+      }
+      _isEditMode = _reservation != null;
+      _validatedForm = _isEditMode || _validatedForm;
+    }
+
+    // Build Styles
     final Color _buttonForegroundColor =
         (_validatedForm) ? _appConstants.getForeGroundColor : Colors.grey;
     final ButtonStyle _buttonStyle = ButtonStyle(
@@ -65,7 +82,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          formType,
+          (_isEditMode) ? 'View Reservation' : 'Add Reservation',
           style: TextStyle(color: _appConstants.getBackGroundColor),
         ),
         backgroundColor: _appConstants.getForeGroundColor,
@@ -74,97 +91,125 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
         shadowColor: _appConstants.getLighterForeGroundColor,
       ),
       backgroundColor: _appConstants.getBackGroundColor,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Card(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: _appConstants.getForeGroundColor),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 5,
-            color: _appConstants.getLighterForeGroundColor[50].withAlpha(255),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            shadowColor: _appConstants.getLighterForeGroundColor,
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-              child: Form(
-                key: widget._formKey,
-                autovalidateMode: AutovalidateMode.always,
-                onChanged: _update,
-                child: Column(
-                  children: [
-                    FormBuilderTextField(
-                      validators: [FormBuilderValidators.required()],
-                      decoration: InputDecoration(labelText: 'Reserver Name'),
-                      controller: _controlmap['name'],
-                      attribute: 'name',
-                    ),
-                    FormBuilderTextField(
-                      validators: [
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.numeric(),
-                        FormBuilderValidators.minLength(10),
-                        FormBuilderValidators.maxLength(12),
-                      ],
-                      decoration: InputDecoration(labelText: 'Phone Number'),
-                      controller: _controlmap['phone'],
-                      attribute: 'phone',
-                    ),
-                    FormBuilderTextField(
-                      validators: [FormBuilderValidators.email()],
-                      decoration: InputDecoration(labelText: 'Email'),
-                      controller: _controlmap['email'],
-                      attribute: 'email',
-                    ),
-                    FormBuilderDateTimePicker(
-                      fieldLabelText: 'Reservation Date',
-                      validators: [
-                        FormBuilderValidators.required(),
-                      ],
-                      decoration:
-                          InputDecoration(labelText: 'Reservation Date'),
-                      initialDate: DateTime.now(),
-                      controller: _controlmap['date'],
-                      attribute: 'date',
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ElevatedButton(
-                        onPressed: (!_validatedForm)
-                            ? null
-                            : () {
-                                // Date String Formatting
-                                String _dateString = dataBloc.reformatDate(
-                                  _controlmap['date'].text,
-                                );
+      body: BlocListener<DataBloc, DataState>(
+        cubit: dataBloc,
+        listener: (context, state) {
+          if (state is ReservationExistsErrorDataState)
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text(
+                    'Appointment Taken',
+                    style: TextStyle(color: Colors.red[900]),
+                  ),
+                ),
+                content: Text(
+                  '${state.toString()}',
+                  style: TextStyle(color: _appConstants.getForeGroundColor),
+                ),
+                backgroundColor: _appConstants.getBackGroundColor,
+              ),
+            );
+        },
+        child: Center(
+          child: SingleChildScrollView(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: _appConstants.getForeGroundColor),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 5,
+              color: _appConstants.getLighterForeGroundColor[50].withAlpha(255),
+              margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              shadowColor: _appConstants.getLighterForeGroundColor,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                child: Form(
+                  key: widget._formKey,
+                  autovalidateMode: AutovalidateMode.always,
+                  onChanged: _update,
+                  child: Column(
+                    children: [
+                      FormBuilderTextField(
+                        validators: [FormBuilderValidators.required()],
+                        decoration: InputDecoration(labelText: 'Reserver Name'),
+                        controller: _controlmap['name'],
+                        attribute: 'name',
+                      ),
+                      FormBuilderTextField(
+                        validators: [
+                          FormBuilderValidators.required(),
+                          FormBuilderValidators.numeric(),
+                          FormBuilderValidators.minLength(10),
+                          FormBuilderValidators.maxLength(12),
+                        ],
+                        decoration: InputDecoration(labelText: 'Phone Number'),
+                        controller: _controlmap['phone'],
+                        attribute: 'phone',
+                      ),
+                      FormBuilderTextField(
+                        validators: [FormBuilderValidators.email()],
+                        decoration: InputDecoration(labelText: 'Email'),
+                        controller: _controlmap['email'],
+                        attribute: 'email',
+                      ),
+                      FormBuilderDateTimePicker(
+                        fieldLabelText: 'Reservation Date',
+                        validators: [
+                          FormBuilderValidators.required(),
+                        ],
+                        decoration:
+                            InputDecoration(labelText: 'Reservation Date'),
+                        initialValue: _reservation?.dateTime,
+                        controller: _controlmap['date'],
+                        attribute: 'date',
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          onPressed: (!_validatedForm)
+                              ? null
+                              : () {
+                                  // Date String Formatting
+                                  String _dateString = dataBloc.reformatDate(
+                                    _controlmap['date'].text,
+                                  );
 
-                                Reservation out = Reservation(
-                                  name: _controlmap['name'].text,
-                                  phoneNum:
-                                      int.parse(_controlmap['phone'].text),
-                                  email: _controlmap['email'].text,
-                                  dateTime: DateTime.parse(_dateString),
-                                );
-                                if (_isEditMode)
-                                  dataBloc.editReservation(out).then(
-                                        (value) => Navigator.of(context).pop(),
-                                      );
-                                else
-                                  dataBloc.addReservation(out).then(
-                                        (value) => Navigator.of(context).pop(),
-                                      );
-                              },
-                        style: _buttonStyle,
-                        child: Text(
-                          formType,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                                  Reservation out = Reservation(
+                                    name: _controlmap['name'].text,
+                                    phoneNum:
+                                        int.parse(_controlmap['phone'].text),
+                                    email: _controlmap['email'].text,
+                                    dateTime: DateTime.parse(_dateString),
+                                  );
+                                  if (_isEditMode)
+                                    dataBloc.editReservation(out).then(
+                                          (value) =>
+                                              Navigator.of(context).pop(),
+                                        );
+                                  else
+                                    dataBloc.addReservation(out).then(
+                                      (bool wasAdded) {
+                                        if (wasAdded)
+                                          Navigator.of(context).pop();
+                                      },
+                                    );
+                                },
+                          style: _buttonStyle,
+                          child: Text(
+                            (_isEditMode)
+                                ? 'Edit Reservation'
+                                : 'Add Reservation',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

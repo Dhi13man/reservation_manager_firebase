@@ -25,7 +25,7 @@ void main() {
 }
 
 class ReservationApp extends StatelessWidget {
-  final String _appTitle = 'Restaurant Manager';
+  final String _appTitle = 'Reservation Manager';
 
   // This widget is the root of the application.
   @override
@@ -80,7 +80,6 @@ class ReservationApp extends StatelessWidget {
                   ),
                 ),
                 type: PageTransitionType.fade,
-                duration: Duration(seconds: 2, milliseconds: 500),
                 settings: settings,
               );
               break;
