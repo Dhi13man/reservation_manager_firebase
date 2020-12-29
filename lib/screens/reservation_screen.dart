@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:restaurant_manage/backend/bloc/Data/Data_bloc.dart';
-import 'package:restaurant_manage/backend/bloc/Login/Login_bloc.dart';
-import 'package:restaurant_manage/backend/constants.dart';
-import 'package:restaurant_manage/backend/repos/data_classes.dart';
+import 'package:reservation_manage/backend/bloc/Data/Data_bloc.dart';
+import 'package:reservation_manage/backend/bloc/Login/Login_bloc.dart';
+import 'package:reservation_manage/backend/constants.dart';
+import 'package:reservation_manage/backend/repos/data_classes.dart';
 
-import 'package:restaurant_manage/screens/add_screen.dart';
-import 'package:restaurant_manage/screens/login_screen.dart';
-import 'package:restaurant_manage/screens/splash_screen.dart';
+import 'package:reservation_manage/screens/add_screen.dart';
+import 'package:reservation_manage/screens/login_screen.dart';
+import 'package:reservation_manage/screens/splash_screen.dart';
 
 class ReservationListItem extends StatelessWidget {
   const ReservationListItem({

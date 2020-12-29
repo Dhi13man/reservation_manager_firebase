@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:restaurant_manage/backend/bloc/Data/Data_bloc.dart';
-import 'package:restaurant_manage/backend/constants.dart';
-import 'package:restaurant_manage/backend/repos/data_classes.dart';
+import 'package:reservation_manage/backend/bloc/Data/Data_bloc.dart';
+import 'package:reservation_manage/backend/constants.dart';
+import 'package:reservation_manage/backend/repos/data_classes.dart';
 
 class AddReservationScreen extends StatefulWidget {
   final Reservation _reservation;

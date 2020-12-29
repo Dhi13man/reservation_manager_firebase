@@ -35,7 +35,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.dhi13man.restaurant_manage"
+        applicationId "com.dhi13man.reservation_manage"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()

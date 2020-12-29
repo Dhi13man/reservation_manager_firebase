@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:restaurant_manage/backend/constants.dart';
+import 'package:reservation_manage/backend/constants.dart';
 
-import 'package:restaurant_manage/screens/login_screen.dart';
+import 'package:reservation_manage/screens/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key key}) : super(key: key);

@@ -2,7 +2,7 @@
     package="com.dhi13man.restaurant_manage">
   <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="restaurant_manage"
+        android:label="reservation_manage"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
