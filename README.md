@@ -1,7 +1,8 @@
 # Firebase Reservation Manger
 
 This is a Reservation Management App project made in an attempt to learn how to utilize Firebase in a short period of time.
-Download App from Releases: 
+
+Download the Android App [`.apk` directly](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Output/ReservationManager.apk), or compressed version from [Releases Page](https://github.com/Dhi13man/reservation_manager_firebase/releases/tag/0.5.0-android).
 
 ## Getting Started
 
@@ -31,13 +32,15 @@ Reservation List Screen(Light): | Reservation List Screen(Dark):
 --------------------------------------|----------------------
 [<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveL.jpg" alt="Reservation List Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveL.jpg) | [<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveD.jpg" alt="Reservation List Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveD.jpg)
 
-Add Reservation Screen(Light): | Add Reservation Screen(Dark):
+Add or Edit Reservation Screen(Light): | Add or Edit Reservation Screen(Dark):
 --------------------------------------|----------------------
 [<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addL.jpg" alt="Add Reservation Screen(Light)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addL.jpg) | [<img height="600" width="350" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addD.jpg" alt="Add Reservation Screen(Dark)">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/addD.jpg)
 
 Reservation Screen Landscape:|
 ------------------------------|
 [<img height="300" width="600" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
+
+---
 
 ## Dependencies Used
 
