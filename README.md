@@ -39,7 +39,7 @@ Reservation Screen Landscape:|
 ------------------------------|
 [<img height="300" width="600" src="https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg" alt="Reservation Screen Landscape">](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Screenshots/reserveLand.jpg) |
 
-### Dependencies Used
+## Dependencies Used
 
 1. [material](https://material.io/develop/flutter) for UI
 
