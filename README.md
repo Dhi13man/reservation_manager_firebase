@@ -8,7 +8,7 @@ Download the Android App [`.apk` directly](https://raw.githubusercontent.com/Dhi
 
 This repository holds the code for a Reservation Management App that can be utilized by Hotels, Restaurants etc.
 
-The app utilizes Firebase as a backend for Authentication and Real Time Database implementation, which the app works around.
+The app utilizes Firebase as a backend for Authentication and Firestore Database implementation, which the app works around.
 
 1. Utilizes [Firebase](https://www.firebase.com) for a database that works across platforms
 
@@ -19,7 +19,7 @@ The app utilizes Firebase as a backend for Authentication and Real Time Database
 ## Features
 
 1. Firebase based Google and Email Authentication
-2. Real-Time dynamic database for reservations.
+2. Firestore dynamic database for reservations.
 3. Light and Dark Themes (toggleable by tapping icon)
 
 ## Screenshots
