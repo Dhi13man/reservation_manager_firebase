@@ -130,6 +130,14 @@ class AuthenticationRepository {
       throw LogOutFailure();
     }
   }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on Exception {
+      throw LogInWithEmailAndPasswordFailure();
+    }
+  }
 }
 
 extension on firebase_auth.User {

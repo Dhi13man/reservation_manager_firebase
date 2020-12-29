@@ -41,12 +41,33 @@ class LoginButtons extends StatelessWidget {
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(buttonPadding),
     );
 
+    bool isEmailValid = (_controlmap['user'] == null)
+        ? false
+        : FormBuilderValidators.email()(_controlmap['user'].text) == null;
+
     return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 5),
+      margin: EdgeInsets.only(top: 5, bottom: 5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
         children: [
+          Container(
+            alignment: Alignment.bottomRight,
+            child: TextButton(
+              onPressed: (!isEmailValid)
+                  ? null
+                  : () => loginBloc.forgotPassword(_controlmap['user'].text),
+              child: Text(
+                'Forgot password',
+                style: TextStyle(
+                  color: (isEmailValid)
+                      ? _appConstants.getForeGroundColor
+                      : Colors.grey,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -119,7 +140,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final Map<String, TextEditingController> _controlmap = {
+  final Map<String, TextEditingController> _controlMap = {
     'user': TextEditingController(),
     'pass': TextEditingController(),
   };
@@ -162,7 +183,7 @@ class _LoginFormState extends State<LoginForm> {
                 decoration: InputDecoration(
                   labelText: 'Email Address',
                 ),
-                controller: _controlmap['user'],
+                controller: _controlMap['user'],
                 attribute: 'user',
               ),
               FormBuilderTextField(
@@ -173,13 +194,13 @@ class _LoginFormState extends State<LoginForm> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                 ),
-                controller: _controlmap['pass'],
+                controller: _controlMap['pass'],
                 attribute: 'pass',
               ),
               LoginButtons(
                 appConstants: widget._appConstants,
                 isFormValid: _validatedForm,
-                controlmap: _controlmap,
+                controlmap: _controlMap,
               )
             ],
           ),
@@ -190,7 +211,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    _controlmap.forEach((_, TextEditingController c) => c.dispose());
+    _controlMap.forEach((_, TextEditingController c) => c.dispose());
     super.dispose();
   }
 }

@@ -75,4 +75,7 @@ class LoginBloc extends Cubit<LoginState> {
     await _authenticationRepository.logOut();
     emit(SignedOutLoginState());
   }
+
+  void forgotPassword(String email) async =>
+      await _authenticationRepository.forgotPassword(email);
 }
