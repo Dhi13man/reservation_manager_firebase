@@ -10,6 +10,7 @@ import 'package:reservation_manager/backend/repos/data_classes.dart';
 import 'package:reservation_manager/screens/add_screen.dart';
 import 'package:reservation_manager/screens/login_screen.dart';
 import 'package:reservation_manager/screens/splash_screen.dart';
+import 'package:reservation_manager/screens/sort_bar.dart';
 
 class ReservationListItem extends StatelessWidget {
   const ReservationListItem({
@@ -74,7 +75,10 @@ class ReservationListItem extends StatelessWidget {
           ),
           isThreeLine: true,
           trailing: IconButton(
-            icon: Icon(Icons.delete, color: appConstants.getForeGroundColor),
+            icon: Icon(
+              Icons.delete,
+              color: appConstants.getForeGroundColor.shade800,
+            ),
             onPressed: () => dataBloc.deleteReservation(reservation),
           ),
           tileColor: appConstants.getBackGroundColor,
@@ -104,13 +108,14 @@ class ReservationList extends StatelessWidget {
               _dataBloc.extractDataFromFirebase(docSnap.data());
           if (reservations.isEmpty)
             return Center(
-                child: Text(
-              'No Reservations added yet!',
-              style: TextStyle(
-                fontSize: 18,
-                color: _appConstants.getForeGroundColor,
+              child: Text(
+                'No Reservations added yet!',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: _appConstants.getForeGroundColor,
+                ),
               ),
-            ));
+            );
 
           return ListView.builder(
             itemCount: reservations.length,
@@ -173,9 +178,11 @@ class ReservationListScreen extends StatelessWidget {
             );
           }
         },
-        child: Container(
-          margin: EdgeInsets.all(10),
-          child: ReservationList(),
+        child: Column(
+          children: [
+            SortBar(),
+            Expanded(child: ReservationList()),
+          ],
         ),
       ),
       floatingActionButton: ElevatedButton(
@@ -190,7 +197,8 @@ class ReservationListScreen extends StatelessWidget {
             EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           ),
           backgroundColor: MaterialStateProperty.all<Color>(
-              _appConstants.getForeGroundColor),
+            _appConstants.getForeGroundColor.shade800,
+          ),
         ),
         child: Icon(
           Icons.my_library_add,

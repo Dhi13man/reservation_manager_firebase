@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:reservation_manager/backend/bloc/Data/Data_state.dart';
 import 'package:reservation_manager/backend/bloc/Login/Login_bloc.dart';
@@ -43,29 +44,56 @@ class DataBloc extends Cubit<DataState> {
     CollectionReference reservations = FirebaseFirestore.instance.collection(
       _collectionName,
     );
-    emit(InDataState(collection: reservations));
+
+    // Check if user has preffered saved Sorting Preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String savedCriteria = prefs.getString('criteria');
+    bool savedOrder = prefs.getBool('isAscending');
+
+    emit(InDataState(
+      collection: reservations,
+      criteria: savedCriteria ?? 'Name',
+      isAscending: savedOrder ?? true,
+    ));
   }
 
+  /// Stream from Firestore
   Stream<DocumentSnapshot> documentStream() {
-    if (_loginBloc.state is SignedInLoginState) {
-      return FirebaseFirestore.instance
-          .collection(_collectionName)
-          .doc('${docToken}_doc')
-          .snapshots();
+    if (_loginBloc.state is SignedInLoginState && state is InDataState) {
+      InDataState _state = state;
+      return _state.collection.doc('${docToken}_doc').snapshots();
+    } else {
+      _initialise();
+      return Stream.empty();
     }
-    return Stream.empty();
   }
 
+  /// Get from Firestore
   Future<DocumentSnapshot> documentCheck() {
-    if (_loginBloc.state is SignedInLoginState) {
-      return FirebaseFirestore.instance
-          .collection(_collectionName)
-          .doc('${docToken}_doc')
-          .get();
+    if (_loginBloc.state is SignedInLoginState && state is InDataState) {
+      InDataState _state = state;
+      return _state.collection.doc('${docToken}_doc').get();
     } else {
-      _loginBloc.emit(SignedOutLoginState());
+      _initialise();
       return Future.value();
     }
+  }
+
+  /// To implement sorted Reservation List Building.
+  ///  [filter] specifies what property to sort with from ['Name', 'Reservation Time', 'E-Mail']
+  /// List wil be in ascending order if [isAscending] is true
+  void rebuildReservationsStream({String filter, bool isAscending}) {
+    if (state is InDataState) {
+      InDataState _state = state;
+      emit(
+        InDataState(
+          collection: _state.collection,
+          criteria: filter ?? _state.criteria,
+          isAscending: isAscending ?? _state.isAscending,
+        ),
+      );
+    } else
+      _initialise();
   }
 
   Future<bool> _isReservationTaken(String reservationKey) async {
@@ -128,7 +156,7 @@ class DataBloc extends Cubit<DataState> {
 
   /// Utilities
 
-  /// Extracts Database from Firebase and converts it to a list of [Reservation]
+  /// Extracts Database from Firestore and converts it to a list of [Reservation]
   List<Reservation> extractDataFromFirebase(
       Map<dynamic, dynamic> firebaseData) {
     List<Reservation> outputReservationsList = [];
@@ -137,6 +165,19 @@ class DataBloc extends Cubit<DataState> {
         mapToReservation(value),
       ),
     );
+    outputReservationsList.sort((Reservation a, Reservation b) {
+      if (state is InDataState) {
+        InDataState _state = state;
+        String _criteria = _state.criteria;
+        int isAscending = (_state.isAscending) ? 1 : -1;
+        if (_criteria == 'name') return isAscending * a.name.compareTo(b.name);
+        if (_criteria == 'email')
+          return isAscending * a.email.compareTo(b.email);
+        if (_criteria == 'datetime')
+          return isAscending * a.dateTime.compareTo(b.dateTime);
+      }
+      return 0;
+    });
     return outputReservationsList;
   }
 
