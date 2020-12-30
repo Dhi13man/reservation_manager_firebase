@@ -2,7 +2,7 @@
 
 This is a Reservation Management App project made in an attempt to learn how to utilize Firebase in a short period of time.
 
-Download the Android App [`.apk` directly](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Output/ReservationManager.apk), or compressed version from [Releases Page](https://github.com/Dhi13man/reservation_manager_firebase/releases/tag/0.5.0-android).
+Download the Android App [`.apk` directly](https://raw.githubusercontent.com/Dhi13man/reservation_manager_firebase/main/Output/ReservationManager.apk), or compressed version from [Releases Page](https://github.com/Dhi13man/reservation_manager_firebase/releases/tag/0.7.0-android).
 
 ## Getting Started
 
@@ -19,7 +19,7 @@ The app utilizes Firebase as a backend for Authentication and Firestore Database
 ## Features
 
 1. Firebase based Google and Email Authentication
-2. Firestore dynamic database for reservations.
+2. Firestore dynamic database for reservations with one tap custom sorting.
 3. Light and Dark Themes (toggleable by tapping icon)
 
 ## Screenshots
