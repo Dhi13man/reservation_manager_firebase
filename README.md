@@ -55,14 +55,16 @@ Reservation Screen Landscape:|
 5. [firebase_core](https://pub.dev/packages/firebase_core) and supporting Libraries for Cross Platform Authentication and Database backend
     1. [firebase_auth](https://pub.dev/packages/firebase_auth) for Firebase Authentication System interfacing
     2. [cloud_firestore](https://pub.dev/packages/cloud_firestore) for Firebase Firestore interfacing
+    3. [google_sign_in](https://pub.dev/packages/google_sign_in) for Google Sign in using Firebase
 
-6. [google_sign_in](https://pub.dev/packages/google_sign_in) for Google Sign in using Firebase
+6. [bloc](https://pub.dev/packages/bloc) for better Architecture and State Management
+   1. [flutter_bloc](https://pub.dev/packages/flutter_bloc) for interfacing blocs faster and better in Flutter
+   2. [equatable](https://pub.dev/packages/equatable) for debugging blocs and proper state tracking
 
-7. [bloc](https://pub.dev/packages/bloc) and [flutter_bloc](https://pub.dev/packages/flutter_bloc) for State Management
-   1. [equatable](https://pub.dev/packages/equatable) for debugging blocs and proper state tracking
+7. [provider](https://pub.dev/packages/provider) for less intensive State Management
 
-8. [provider](https://pub.dev/packages/provider) for less intensive State Management
+8. [shared_preferences](https://pub.dev/packages/shared_preferences) for storing simple data locally
 
-9. [shared_preferences](https://pub.dev/packages/shared_preferences) for storing simple data locally
+9. [flutter_form_builder](https://pub.dev/packages/flutter_form_builder) for easily building forms for Authentication and Database editing front end
 
-10. [flutter_form_builder](https://pub.dev/packages/flutter_form_builder) for easily building forms for Authentication and Database editing front end
+10. [flutter_signin_button](https://pub.dev/packages/flutter_signin_button) for a pre-made Google sign-in button.
