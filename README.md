@@ -68,3 +68,11 @@ Reservation Screen Landscape:|
 9. [flutter_form_builder](https://pub.dev/packages/flutter_form_builder) for easily building forms for Authentication and Database editing front end
 
 10. [flutter_signin_button](https://pub.dev/packages/flutter_signin_button) for a pre-made Google sign-in button.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+See [LICENSE](LICENSE).
